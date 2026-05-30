@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cyber Nerd Surf — Apurva Bakshi's cybersecurity learning blog. Class notes, research, and labs documented in plain English." />
+  <title>Blog · Apurva Bakshi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:      #1B2A4A;
+      --navy-mid:  #243660;
+      --slate-bg:  #F4F2EE;
+      --amber:     #C4622D;
+      --amber-hover: #A84F24;
+      --mid-slate: #8A9AB0;
+      --body-text: #2C2C2C;
+      --white:     #FFFFFF;
+      --divider:   #DDD9D3;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans:  'Inter', system-ui, sans-serif;
+      --max-w: 860px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--body-text); background: var(--slate-bg); }
+    a { color: var(--amber); text-decoration: none; }
+    a:hover { color: var(--amber-hover); text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav { position: sticky; top: 0; z-index: 100; background: var(--slate-bg); border-bottom: 1px solid var(--divider); }
+    .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-name { font-size: 14px; font-weight: 600; color: var(--navy); text-decoration: none; }
+    .nav-name:hover { text-decoration: none; color: var(--amber); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--navy); text-decoration: none; padding-bottom: 2px; border-bottom: 2px solid transparent; transition: border-color 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--amber); border-color: var(--amber); }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--navy); margin: 5px 0; }
+
+    /* ── BLOG HEADER ── */
+    .blog-header { background: var(--navy); color: var(--white); padding: 64px 24px 48px; }
+    .blog-header .container { max-width: var(--max-w); margin: 0 auto; }
+    .blog-header-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); margin-bottom: 16px; }
+    .blog-header h1 { font-family: var(--serif); font-size: clamp(32px, 5vw, 48px); color: var(--white); line-height: 1.12; margin-bottom: 16px; }
+    .blog-header p { font-size: 16px; color: rgba(255,255,255,0.7); max-width: 520px; line-height: 1.65; }
+
+    /* ── POST LIST ── */
+    #post-list { max-width: var(--max-w); margin: 0 auto; padding: 48px 24px; }
+    .series-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid-slate); margin-bottom: 20px; margin-top: 40px; padding-bottom: 10px; border-bottom: 1px solid var(--divider); }
+    .series-label:first-child { margin-top: 0; }
+
+    .post-card { background: var(--white); border: 1px solid var(--divider); border-radius: 6px; padding: 24px 28px; margin-bottom: 16px; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+    .post-card:hover { border-color: var(--amber); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .post-card-meta { font-size: 12px; color: var(--mid-slate); margin-bottom: 6px; }
+    .post-card-title { font-family: var(--serif); font-size: 20px; color: var(--navy); line-height: 1.2; margin-bottom: 8px; }
+    .post-card-excerpt { font-size: 14px; color: #666; line-height: 1.6; }
+    .post-card-arrow { color: var(--amber); font-size: 20px; flex-shrink: 0; margin-top: 4px; }
+
+    /* ── SINGLE POST ── */
+    #post-view { display: none; max-width: var(--max-w); margin: 0 auto; padding: 40px 24px 80px; }
+    .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--navy); text-decoration: none; margin-bottom: 32px; padding: 8px 16px; border: 1px solid var(--divider); border-radius: 4px; background: var(--white); transition: border-color 0.2s; cursor: pointer; }
+    .back-btn:hover { border-color: var(--amber); color: var(--amber); text-decoration: none; }
+
+    .post-header { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--divider); }
+    .post-series { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
+    .post-title { font-family: var(--serif); font-size: clamp(28px, 4vw, 40px); color: var(--navy); line-height: 1.12; margin-bottom: 16px; }
+    .post-byline { font-size: 13px; color: var(--mid-slate); }
+
+    .post-body { font-size: 16px; line-height: 1.8; color: var(--body-text); }
+    .post-body p { margin-bottom: 20px; }
+    .post-body h2 { font-family: var(--sans); font-size: 18px; font-weight: 600; color: var(--navy); margin-top: 36px; margin-bottom: 12px; }
+    .post-body h3 { font-family: var(--sans); font-size: 16px; font-weight: 600; color: var(--navy); margin-top: 24px; margin-bottom: 8px; }
+    .post-body strong { font-weight: 600; color: var(--navy); }
+    .post-body em { font-style: italic; }
+    .post-body ul, .post-body ol { padding-left: 24px; margin-bottom: 20px; }
+    .post-body li { margin-bottom: 10px; line-height: 1.7; }
+    .post-body a { color: var(--amber); }
+    .post-body blockquote { border-left: 3px solid var(--amber); padding: 12px 20px; margin: 24px 0; background: #FFF8F5; border-radius: 0 4px 4px 0; }
+    .post-body blockquote p { margin-bottom: 0; font-style: italic; }
+    .post-body .note { background: #F0F4FF; border-left: 3px solid var(--navy-mid); padding: 12px 20px; margin: 20px 0; border-radius: 0 4px 4px 0; font-size: 14px; }
+    .post-body code { font-family: 'Courier New', monospace; background: #F0F0EC; padding: 2px 6px; border-radius: 3px; font-size: 14px; color: var(--navy); }
+    .post-body pre { background: var(--navy); color: #E8F0FF; padding: 20px; border-radius: 6px; overflow-x: auto; margin: 20px 0; font-size: 13px; line-height: 1.6; }
+    .post-body pre code { background: none; padding: 0; color: inherit; }
+
+    .next-steps { background: var(--navy); color: var(--white); padding: 20px 24px; border-radius: 6px; margin-top: 40px; }
+    .next-steps p { margin: 0; font-size: 15px; color: rgba(255,255,255,0.85); }
+    .next-steps strong { color: var(--amber); }
+
+    /* ── FOOTER ── */
+    footer { background: #111C30; padding: 24px; text-align: center; }
+    footer p { font-size: 12px; color: rgba(255,255,255,0.35); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 56px; left: 0; right: 0; background: var(--slate-bg); border-bottom: 1px solid var(--divider); padding: 16px 24px 20px; gap: 16px; }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+      .post-card { flex-direction: column; }
+      .post-card-arrow { display: none; }
+      #post-list, #post-view { padding: 32px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-name">Apurva Bakshi</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- BLOG HEADER -->
+  <div class="blog-header">
+    <div class="container">
+      <p class="blog-header-label">Cyber Nerd Surf</p>
+      <h1>Learning in public, one log at a time.</h1>
+      <p>Class notes, lab walkthroughs, and research — documented because explaining something in writing is the best test I know for whether I actually understand it.</p>
+    </div>
+  </div>
+
+  <!-- POST LIST VIEW -->
+  <div id="post-list">
+    <p class="series-label">Class &amp; Lab Notes · Logs 01–05</p>
+
+    <div class="post-card" onclick="showPost('log01')">
+      <div>
+        <p class="post-card-meta">May 13, 2025 · 3 min read</p>
+        <p class="post-card-title">Log 01: Cyber… Security… Cybersecurity?</p>
+        <p class="post-card-excerpt">What does cybersecurity actually mean? Breaking down red teams, blue teams, purple teaming, and the entry-level roles worth knowing about.</p>
+      </div>
+      <span class="post-card-arrow">→</span>
+    </div>
+
+    <div class="post-card" onclick="showPost('log02')">
+      <div>
+        <p class="post-card-meta">May 20, 2025 · 3 min read</p>
+        <p class="post-card-title">Log 02: DISSECTION — Hardware Made Simple</p>
+        <p class="post-card-excerpt">We opened up a 2014 Dell Optiplex in class. Here's everything inside it, what each component does, and what the ports on the outside are for.</p>
+      </div>
+      <span class="post-card-arrow">→</span>
+    </div>
+
+    <div class="post-card" onclick="showPost('log03')">
+      <div>
+        <p class="post-card-meta">May 27, 2025 · 2 min read</p>
+        <p class="post-card-title">Log 03: From Input to Output — How the Hardware Really Works</p>
+        <p class="post-card-excerpt">Ever wonder how a computer actually understands what you're asking it to do? It all comes down to electricity, binary, and logic gates.</p>
+      </div>
+      <span class="post-card-arrow">→</span>
+    </div>
+
+    <div class="post-card" onclick="showPost('log04')">
+      <div>
+        <p class="post-card-meta">Jun 3, 2025 · 3 min read</p>
+        <p class="post-card-title">Log 04: Operating Systems</p>
+        <p class="post-card-excerpt">What is an OS actually doing? Breaking down the userland, the kernel, the API layer, BIOS, HAL, and how Windows organizes your files.</p>
+      </div>
+      <span class="post-card-arrow">→</span>
+    </div>
+
+    <div class="post-card" onclick="showPost('log05')">
+      <div>
+        <p class="post-card-meta">Aug 14, 2025 · 4 min read</p>
+        <p class="post-card-title">Log 05: Creating User Accounts in Windows</p>
+        <p class="post-card-excerpt">A hands-on lab walkthrough — creating and managing user accounts in Windows 11 Enterprise, then doing the same thing via PowerShell.</p>
+      </div>
+      <span class="post-card-arrow">→</span>
+    </div>
+
+    <p class="series-label">Cyber Nerd Surf · Research Series</p>
+
+    <div class="post-card" onclick="showPost('cns01')">
+      <div>
+        <p class="post-card-meta">Aug 28, 2025 · 3 min read</p>
+        <p class="post-card-title">Cyber Nerd Surf: Log 01 — Encryption</p>
+        <p class="post-card-excerpt">Symmetric vs. asymmetric encryption, common algorithms, hardware security modules, and the Diffie-Hellman key exchange — explained simply.</p>
+      </div>
+      <span class="post-card-arrow">→</span>
+    </div>
+  </div>
+
+  <!-- SINGLE POST VIEW -->
+  <div id="post-view">
+    <button class="back-btn" onclick="showList()">← All Posts</button>
+    <div id="post-content"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Apurva Bakshi · <a href="index.html" style="color:rgba(255,255,255,0.35);">apurva-bakshi.com</a></p>
+  </footer>
+
+  <script>
+    const posts = {
+
+      log01: {
+        series: 'Class &amp; Lab Notes',
+        title: 'Log 01: Cyber&#8203;… Security&#8203;… Cybersecurity?',
+        date: 'May 13, 2025 · 3 min read',
+        body: `
+          <h2>🤔 What Is Cybersecurity?</h2>
+          <p>What does cybersecurity even mean? Simply put, it is protecting user data on devices and networks from threats. We live in a highly connected world with our computers, phones, watches, etc. Nowadays with the rise of IoT (Internet of Things), almost anything can be a smart device — refrigerators, light switches, even toilets! Their "smart" features mean these devices can talk to another device, and so the data being transferred to and fro needs to be protected too.</p>
+          <p>Cybersecurity is a vast and growing field that deals with all the aspects of securing user data. Yes, there are malicious threat actors who want to steal data from individuals, businesses, governments, etc. But if the everyday person understood how to identify vulnerabilities in their own system and take precautions, then I believe many cyber attacks that happen daily can be deterred.</p>
+          <p>This brings up the two broad domains in cybersecurity:</p>
+          <ul>
+            <li>🔴 <strong>Red teaming</strong> — the offensive roles that consist of ethical hackers who launch controlled attacks into one's system to discover vulnerabilities.</li>
+            <li>🔵 <strong>Blue teaming</strong> — the defender roles who proactively safeguard, monitor, and protect against present and future attacks.</li>
+            <li>🟣 <strong>Purple teaming</strong> — a mix of both activities.</li>
+          </ul>
+
+          <h2>🧑‍💻 Working in the Field</h2>
+          <p>Now that we see how wide cybersecurity is, we can rightly conclude that job seekers can easily get overwhelmed by what knowledge and certifications are needed for their desired role. After all, <a href="https://pauljerimy.com/security-certification-roadmap/" target="_blank" rel="noopener">Paul Jerimy's map</a> identifies <strong>481 certifications</strong> available for cybersecurity roles. Thankfully, not everyone has to know everything, especially at an entry-level role!</p>
+          <p>Another cool part is that this field is highly <strong>practical</strong>. This means that practical experience, soft skills, and personal connections matter a lot — which is exciting for aspirants without a cybersecurity degree (like me 🙂). As long as you have a drive to help people and continuously learn and evolve, you can be successful.</p>
+
+          <p>💡 If the field of cybersecurity has piqued your interest, here are some entry-level roles to get your foot in the door:</p>
+          <ol>
+            <li><strong>Help Desk</strong> — A great first job to get acquainted with how the IT department operates in the real world. You'll receive tickets from users, for which you are the first point of contact.<br><em>💵 Average salary range: $18–$25/hr.</em><br><em>💻 Skills needed: hands-on troubleshooting, note-taking, basic hardware knowledge, interpersonal skills.</em></li>
+            <li><strong>SOC Analyst (Tier I)</strong> — A great step-up from Help Desk. SOC Analysts are the first line of defense against security breaches. Fast-paced, detail-oriented work.<br><em>💵 Average salary range: $50k–$65k/yr.</em><br><em>💻 Skills needed: cool-headed response, efficient decision-making, organized record-keeping, communication skills.</em></li>
+          </ol>
+          <div class="next-steps"><p>🪜 <strong>Next Steps:</strong> Personally, I'm taking a class that will teach me the skills to be a SOC Tier I. Learning from our Professor and performing labs with my peers has taught me a lot of practical skills, which I'll be sharing through future blog posts. Stay tuned!</p></div>
+        `
+      },
+
+      log02: {
+        series: 'Class &amp; Lab Notes',
+        title: 'Log 02: DISSECTION — Hardware Made Simple',
+        date: 'May 20, 2025 · 3 min read',
+        body: `
+          <p>There are so many areas in cybersecurity to explore, which may seem overwhelming. Even before learning how to keep our data secure, however, it helps to start from scratch and understand the machine we want to keep safe. Today, my instructor and peers in class opened up a <strong>2014 Dell Optiplex</strong> computer and explored its basic components. Here is an overview of our dissection.</p>
+
+          <div class="note">‼️ <strong>Note:</strong> Before popping open your device, take precautions against <strong>electrostatic discharge (ESD)</strong>. ESD can easily damage sensitive components — don't touch metal parts, and use an anti-static wristband to keep everything grounded.</div>
+
+          <h2>🔬 The Guts of a Computer</h2>
+
+          <h3>💓 The Motherboard: The Heart</h3>
+          <p>The motherboard is where everything connects. It houses all the crucial parts and links them together.</p>
+
+          <h3>🧠 The CPU: The Brain</h3>
+          <p>The CPU (Central Processing Unit) processes all commands. It is attached to the motherboard with <strong>thermal paste</strong> to keep it cool. Some popular CPU brands are <strong>Intel</strong> and <strong>AMD</strong>. Our Optiplex had an Intel i5 processor with 4 cores.</p>
+          <div class="note">‼️ To quickly check your device's CPU specs: Windows &gt; Task Manager &gt; Performance tab &gt; CPU.</div>
+
+          <h3>💭 The RAM: Short-Term Memory</h3>
+          <p>RAM (Random Access Memory) stores data temporarily while our computer is on. This data is erased once we turn off the computer. It looks like a horizontal bar that slides into slots. More RAM means faster performance. Our Optiplex had 8GB RAM (two 4GB sticks). There are different types of RAM — you can tell by the location of a small notch on the bottom edge of the bar. Ours was type DDR-3.</p>
+
+          <h3>🤓 The Drives: Long-Term Memory</h3>
+          <p>There are two types: <strong>HDD</strong> (Hard Disk Drive) and <strong>SSD</strong> (Solid State Drive). SSDs are faster and more common in newer computers. The Optiplex had an SSD!</p>
+
+          <h3>🔌 The Power Supply: The Lifeline</h3>
+          <p>The Power Supply Unit (PSU) provides all the power for your computer. Power specifications are listed on a sticker on the unit.</p>
+
+          <h3>👀 The GPU: Graphics Power</h3>
+          <p>A powerful GPU (Graphics Processing Unit) helps with graphics and video processing. Our Optiplex had an integrated GPU, while more advanced computers have a separate unit.</p>
+
+          <h2>🖥️ Outside the Computer: Ports and Connections</h2>
+          <ul>
+            <li><strong>HDMI &amp; Display Ports (DP)</strong> — Used for video output to monitors and TVs.</li>
+            <li><strong>Serial, VGA, DVI Ports</strong> — Older ports that are less common now.</li>
+            <li><strong>USB-A</strong> — The standard port for peripherals. Look for the blue tab inside the port for SuperSpeed (SS).</li>
+            <li><strong>RJ45</strong> — The Ethernet port for wired internet connections.</li>
+            <li><strong>3.5mm Jacks</strong> — For speakers, headphones, or microphones.</li>
+          </ul>
+
+          <p>Congratulations, we have successfully taken apart a PC! Good luck putting it back together 😏</p>
+
+          <p>💡 <strong>Practical Application:</strong> A week after this class, our instructor's HP Elitebook laptop wouldn't turn on. Upon opening it up, we did some troubleshooting — inspected the power supply, tried hard booting, checked that the inside components were properly connected, and finally checked the battery. Turns out, the battery just needed to be replaced. Our skills came in handy that day!</p>
+
+          <div class="next-steps"><p>🪜 <strong>Next Steps:</strong> Now that we better understand the parts of a computer, we can move on to studying how this hardware actually stores and processes data in the next log. Stay tuned!</p></div>
+        `
+      },
+
+      log03: {
+        series: 'Class &amp; Lab Notes',
+        title: 'Log 03: From Input to Output — How the Hardware Really Works',
+        date: 'May 27, 2025 · 2 min read',
+        body: `
+          <p>💡 When you interact with your computer, ever wonder how it actually understands and processes your input? We have all heard about binary — the computer's language of 0's and 1's. But how does this actually work? It is all powered by electricity.</p>
+          <p>In its most basic form, a <strong>0</strong> means a lack of current, and a <strong>1</strong> means the presence of a certain amount of volts of electrical current. This binary system allows the computer to understand and process various commands.</p>
+
+          <h2>🖥️ The Big Picture</h2>
+          <p>Essentially, when you give an input — like clicking an icon with your mouse or pressing a key on the keyboard — the command is sent to the <strong>CPU (Central Processing Unit)</strong> for processing. This means that the <strong>Operating System</strong> (Windows, Linux, Mac, etc.) through which you send your input communicates with the computer hardware (CPU, Motherboard via transistors) via binary code.</p>
+
+          <h2>⚙️ A Closer Look Inside the CPU</h2>
+          <p>Inside the CPU chip, there are <strong>internal registers</strong> that receive electrical current based on your given input. These registers use <strong>logic gates</strong> — tiny circuits that interpret the current and perform logical operations based on their type. There are five types of gates that define how the current is processed: <strong>AND, OR, NOT, NAND,</strong> and <strong>NOR</strong>. Depending on the type of gate, an output is produced, and the computer executes your command.</p>
+
+          <h2>😎 Breaking Down Binary</h2>
+          <p>Binary works in small chunks called <strong>bits</strong> — a single digit, either 0 or 1. Grouping 4 bits together forms a <strong>nibble</strong>, and 8 bits form a <strong>byte</strong> (aka two nibbles). The computer reads these binary strings one byte at a time to process and execute your commands.</p>
+
+          <h2>👩‍💻 Cybersecurity &amp; Hacking</h2>
+          <p>In the field of cybersecurity, a malicious attack may occur from hackers manipulating the binary code to control computer output. The <strong>Digital Forensics</strong> team analyzes the <strong>logs</strong> (records) of this code to figure out exactly what the hacker changed, helping to track down and analyze security breaches.</p>
+
+          <div class="next-steps"><p>🪜 <strong>Next Steps:</strong> In the next log, we will dive into more of the software that runs on the hardware components we discussed above. See you next time!</p></div>
+        `
+      },
+
+      log04: {
+        series: 'Class &amp; Lab Notes',
+        title: 'Log 04: Operating Systems',
+        date: 'Jun 3, 2025 · 3 min read',
+        body: `
+          <p>In the previous log, we saw that users communicate with their machines through binary — the language the computer understands. However, us people don't understand 0's and 1's; instead, we use decimal numbers, alphabets, and symbols. To bridge this communication gap, operating systems exist.</p>
+          <p>In other words, an <strong>Operating System (OS)</strong> like Windows, Macintosh, Linux, etc. is a complex piece of software that provides an interface for users to input commands, processes this input to machine language, and manages hardware resources to produce the desired output.</p>
+
+          <h2>💡 All About Operating Systems</h2>
+          <p>An OS is quite complex and has many layers. We can break these layers down into two big regions — the <strong>userland 👩‍💻</strong> and the <strong>kernel ⚙️</strong>.</p>
+          <ol>
+            <li>The outer layer is the <strong>userland</strong>, which includes everything that users can interact with: <strong>applications</strong>, <strong>utilities</strong> (software that deals with the computer's system), and <strong>libraries</strong> (the code that runs applications).</li>
+            <li>The <strong>kernel</strong> is the OS's core, sandwiched between software and hardware. It's the deep part of the software that talks to the physical hardware and allocates its resources. It is called a "privileged" layer because we need special privileges to access it.</li>
+          </ol>
+          <div class="note">‼️ Hackers use <strong>privilege escalation</strong> to give themselves access to layers that should not otherwise be accessible.</div>
+          <p>There is another thin layer between the userland and kernel called the <strong>API</strong> (Application Programming Interface). This layer provides a standardized way for one software to talk to another using hooks. Hackers love targeting the API because all data goes through this layer!</p>
+
+          <h2>💡 Some More Details</h2>
+          <ol>
+            <li><strong>BIOS</strong> (Basic Input/Output System) — This layer exists between the OS and the hardware. It is embedded in the motherboard and boots up hardware operations in a specific order. It runs right before the OS starts when you power on your device.</li>
+            <li><strong>HAL</strong> (Hardware Abstraction Layer) — This software layer abstracts (represents) hardware processes to the OS kernel. It simplifies the specifics of the hardware that don't need to be known.</li>
+          </ol>
+
+          <h2>🤔 How Operating Systems Organize Data</h2>
+          <p>OSes use <strong>file systems</strong> to store data. Windows OS uses the <strong>NTFS file system</strong> which supports large files and has security features. Older versions of Windows used the <strong>FAT32</strong> file system, which is simpler yet can only support individual file sizes up to 4GB.</p>
+          <p>Files have an <strong>extension</strong> based on what type they are — for example, image files may end in .png or .jpg, and executable files may end in .exe.</p>
+          <div class="note">‼️ Not all files have extensions! This is uncommon on Windows, but Linux OS has executable and text files without extensions. Extensions are hints as to what kind of file it is — they're not required.</div>
+
+          <div class="next-steps"><p>🪜 <strong>Next Steps:</strong> Next, we will dive into the Windows 11 Enterprise OS on our Virtual Machine!</p></div>
+        `
+      },
+
+      log05: {
+        series: 'Class &amp; Lab Notes',
+        title: 'Log 05: Creating User Accounts in Windows',
+        date: 'Aug 14, 2025 · 4 min read',
+        body: `
+          <p>This week, we learned about how to create and manage user accounts in Windows (version Win 11 Enterprise). We also were introduced to PowerShell scripting — and that everything we can do through the UI, we can do using PowerShell!</p>
+          <p>💡 <strong>Practical Application:</strong> This lab is fundamental for people in Help Desk and Windows Administrator roles. At organizations, team members' devices can be added as Users, and Users can be assigned to Groups. By knowing how to navigate different users, their properties, and account settings, we can effectively manage access permissions.</p>
+
+          <h2>Creating a User Through the UI</h2>
+          <blockquote><p>We navigated to <strong>Start &gt; Computer Management &gt; Local Users and Groups &gt; Users</strong>, right-clicked, and created a user named "Testy McTestface".</p></blockquote>
+          <p>We then set a few details for our new user: username, full name, a description, and an initial password.</p>
+
+          <h3>Adding to the Administrators Group</h3>
+          <blockquote><p>We selected the <strong>Member Of</strong> tab, clicked <strong>Add</strong>, typed "Administrators", clicked <strong>Check Names</strong>, found the group, and clicked OK. Testy is now an Admin!</p></blockquote>
+          <div class="note">‼️ <strong>Be careful before adding users to the Administrators group!</strong> Admin controls are powerful — they can add, delete, disable accounts, and change password settings that regular Users do not have access to.</div>
+
+          <h3>Forcing a Password Change at Next Login</h3>
+          <blockquote><p>Go to <strong>Testy's Properties &gt; General &gt; Check "User must change password at next logon"</strong>. When logging in as Testy, after entering the initial password, Windows prompts to set a new one. Success!</p></blockquote>
+
+          <h2>Doing the Same Thing in PowerShell</h2>
+          <div class="note">‼️ We are Administrators, so when running PowerShell go to <strong>Start &gt; PowerShell &gt; Run As Administrator</strong>.</div>
+
+          <h3>Create a user via PowerShell:</h3>
+          <pre><code>net user Testy 55! /add</code></pre>
+          <div class="note">‼️ You may see a warning about the short password not meeting complexity requirements on older Windows OS. The command still completes. Use a longer password to avoid the message.</div>
+
+          <h3>Enable and disable the account:</h3>
+          <pre><code>net user Testy /active:yes
+net user Testy /active:no</code></pre>
+
+          <h3>Delete the account:</h3>
+          <pre><code>net user Testy /delete</code></pre>
+          <div class="note">‼️ <strong>Deleting a user is not ideal most of the time!</strong> Deleting a user deletes all their data, which is difficult to recover. Instead, opt to <strong>disable</strong> the account — the user can no longer log on, but their data is preserved.</div>
+
+          <div class="next-steps"><p>🪜 <strong>Next Steps:</strong> This concludes our lab about User Accounts in Windows! These tools will come in handy in the next lab, where we manage User Permissions to ensure data confidentiality — a core principle in cybersecurity!</p></div>
+        `
+      },
+
+      cns01: {
+        series: 'Cyber Nerd Surf · Research Series',
+        title: 'Cyber Nerd Surf: Log 01 — Encryption',
+        date: 'Aug 28, 2025 · 3 min read',
+        body: `
+          <p>Welcome to <strong>Cyber Nerd Surf</strong>, where I share something interesting I researched this week and try to simplify it. First up: Encryption! 🔐</p>
+
+          <p><strong>Encryption</strong> is converting plain text data to an encoded form called <strong>ciphertext</strong>, using mathematical algorithms called <strong>cryptographic formulas</strong>. The goal is to ensure data isn't readable in plain text to anyone. So if this data falls into the hands of threat actors, they won't be able to decipher it!</p>
+
+          <h2>Two Types of Encryption</h2>
+
+          <h3>1. Symmetric 🔑 — One Key</h3>
+          <p>Uses <strong>one</strong> secret key to both encrypt and decrypt the data. Both the sender and receiver need to know this key.</p>
+          <ul>
+            <li><strong>3DES</strong> — Creates a 168-bit key</li>
+            <li><strong>AES</strong> — A very secure algorithm that creates keys that are 128, 192, or 256 bits long</li>
+          </ul>
+
+          <h3>2. Asymmetric 🔑🗝️ — Two Keys</h3>
+          <p>Uses <strong>two</strong> keys — a <strong>Public key</strong> to encrypt, and a <strong>Private key</strong> to decrypt. Because this involves two keys and is therefore slower and more secure, it is perfect for storing passwords!</p>
+          <ul>
+            <li><strong>RSA</strong> — Used for highly sensitive data; creates 1024, 2048, or 4096-bit keys</li>
+            <li><strong>DSA</strong> — Commonly used for the exchange of online data (Public Key Infrastructure). Creates 2048-bit keys</li>
+          </ul>
+
+          <div class="note">‼️ The longer the key, the better! Hackers use <strong>brute force (dictionary) attacks</strong> to guess keys through trial and error. The longer the key, the harder to guess.<br><br>‼️ <strong>OpenSSL</strong> is a free, commercial-grade software library used for creating public and private keys.</div>
+
+          <h2>💡 Key Management and Hardware Technology</h2>
+          <p>Large organizations use so many keys every day that it's difficult to keep track of all of them. Many organizations use on-premise or cloud-based <strong>Hardware Security Modules (HSMs)</strong> to store thousands of keys. HSMs also have <strong>Cryptographic accelerators</strong> used for real-time encryption and decryption.</p>
+          <p>They also use a <strong>Key Management System</strong> that keeps logs of all created keys, assigned users, and key usage.</p>
+          <p>For individual people, many modern devices have a separate chip called a <strong>Trusted Platform Module (TPM)</strong> that securely creates and stores keys, and authenticates access at the boot level. For data stored across multiple unmanaged devices, a <strong>Security Enclave</strong> is used — a processor separate from the CPU used only for data privacy tasks.</p>
+
+          <h2>💡 Bonus: The Diffie-Hellman Key Exchange Algorithm</h2>
+          <p>This is a highly commonly used key-exchange algorithm for when two authorized parties want to exchange secret encrypted messages. It's commonly used in SSH, TLS, and IPSec protocols. It uses both parties' public and private keys — but makes sure only their public keys are publicly shared, and that their private keys stay hidden.</p>
+          <p>Two great visual explainers by Computerphile on YouTube:</p>
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v=NmM9HA2MQGI" target="_blank" rel="noopener">Diffie-Hellman Key Exchange — Computerphile</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Yjrfm_oRO0w" target="_blank" rel="noopener">Secret Key Exchange (Diffie-Hellman) — Computerphile</a></li>
+          </ul>
+          <p>That's it for this week! It was certainly interesting to learn about Encryption, and I hope you had fun too. Stay tuned for the next Nerd Surf! 🏄‍♀️💦</p>
+        `
+      }
+
+    };
+
+    function showPost(id) {
+      const post = posts[id];
+      if (!post) return;
+      document.getElementById('post-content').innerHTML = `
+        <div class="post-header">
+          <p class="post-series">${post.series}</p>
+          <h1 class="post-title">${post.title}</h1>
+          <p class="post-byline">Apurva Bakshi · ${post.date}</p>
+        </div>
+        <div class="post-body">${post.body}</div>
+      `;
+      document.getElementById('post-list').style.display = 'none';
+      document.getElementById('post-view').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showList() {
+      document.getElementById('post-view').style.display = 'none';
+      document.getElementById('post-list').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
