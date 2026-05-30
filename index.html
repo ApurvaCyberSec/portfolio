@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Apurva Bakshi — GRC-focused Cybersecurity Intern. BFA Animation into Security. Visualizing cyber for everyone." />
+  <title>Apurva Bakshi · Cybersecurity Professional</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Design Tokens ─────────────────────────────── */
+    :root {
+      --navy:      #1B2A4A;
+      --navy-mid:  #243660;
+      --slate-bg:  #F4F2EE;
+      --amber:     #C4622D;
+      --amber-hover: #A84F24;
+      --mid-slate: #8A9AB0;
+      --body-text: #2C2C2C;
+      --white:     #FFFFFF;
+      --divider:   #DDD9D3;
+
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans:  'Inter', system-ui, sans-serif;
+
+      --max-w: 860px;
+      --section-pad: 80px 24px;
+    }
+
+    /* ─── Reset ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--body-text);
+      background: var(--slate-bg);
+    }
+    a { color: var(--amber); text-decoration: none; }
+    a:hover { color: var(--amber-hover); text-decoration: underline; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── Utilities ──────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .section-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid-slate);
+      margin-bottom: 12px;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--divider);
+      margin: 0;
+    }
+
+    /* ─── NAV ────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--slate-bg);
+      border-bottom: 1px solid var(--divider);
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-name {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.01em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--navy);
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--amber);
+      border-color: var(--amber);
+    }
+
+    /* Hamburger (mobile) */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--navy);
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+
+    /* ─── HERO ───────────────────────────────────────── */
+    #hero {
+      background: var(--navy);
+      color: var(--white);
+      padding: 96px 24px 80px;
+    }
+    #hero .container { max-width: var(--max-w); margin: 0 auto; }
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 20px;
+    }
+    .hero-tagline {
+      font-family: var(--serif);
+      font-size: clamp(36px, 6vw, 56px);
+      line-height: 1.12;
+      color: var(--white);
+      margin-bottom: 24px;
+      max-width: 680px;
+    }
+    .hero-bio {
+      font-size: 18px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.75);
+      max-width: 580px;
+      margin-bottom: 36px;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--amber);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+    .hero-cta:hover { background: var(--amber-hover); text-decoration: none; color: var(--white); }
+    .hero-meta {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+    .hero-meta-item {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+    }
+    .hero-meta-item strong {
+      display: block;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    /* ─── ABOUT ──────────────────────────────────────── */
+    #about {
+      padding: var(--section-pad);
+      background: var(--white);
+    }
+    #about .container { max-width: var(--max-w); margin: 0 auto; }
+    .about-heading {
+      font-family: var(--serif);
+      font-size: 36px;
+      color: var(--navy);
+      margin-bottom: 24px;
+      line-height: 1.15;
+    }
+    .about-body p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--body-text);
+      margin-bottom: 18px;
+      max-width: 680px;
+    }
+    .about-body p:last-child { margin-bottom: 0; }
+
+    /* ─── SKILLS ─────────────────────────────────────── */
+    #skills {
+      padding: var(--section-pad);
+      background: var(--slate-bg);
+    }
+    #skills .container { max-width: var(--max-w); margin: 0 auto; }
+    .skills-heading {
+      font-family: var(--serif);
+      font-size: 36px;
+      color: var(--navy);
+      margin-bottom: 12px;
+      line-height: 1.15;
+    }
+    .skills-intro {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #555;
+      max-width: 620px;
+      margin-bottom: 40px;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .skill-card {
+      background: var(--white);
+      border: 1px solid var(--divider);
+      border-radius: 6px;
+      padding: 24px;
+    }
+    .skill-card-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--body-text);
+    }
+    .skill-name { flex: 1; }
+
+    /* Status Tags */
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+      margin-left: 10px;
+    }
+    .tag-active {
+      background: var(--amber);
+      color: var(--white);
+    }
+    .tag-studying {
+      background: transparent;
+      color: var(--navy-mid);
+      border: 1px solid var(--navy-mid);
+    }
+    .tag-foundational {
+      background: #EBEBEB;
+      color: #888;
+    }
+
+    /* Tag Legend */
+    .tag-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+      align-items: center;
+    }
+    .tag-legend-label {
+      font-size: 12px;
+      color: var(--mid-slate);
+      margin-right: 4px;
+    }
+
+    /* ─── BLOG ───────────────────────────────────────── */
+    #blog {
+      padding: var(--section-pad);
+      background: var(--white);
+    }
+    #blog .container { max-width: var(--max-w); margin: 0 auto; }
+    .blog-heading {
+      font-family: var(--serif);
+      font-size: 36px;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .blog-sub {
+      font-size: 16px;
+      color: #555;
+      max-width: 560px;
+      margin-bottom: 32px;
+      line-height: 1.65;
+    }
+    .blog-card {
+      border: 1px solid var(--divider);
+      border-radius: 6px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: var(--slate-bg);
+      transition: border-color 0.2s;
+    }
+    .blog-card:hover { border-color: var(--amber); }
+    .blog-card-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid-slate);
+      margin-bottom: 6px;
+    }
+    .blog-card-name {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .blog-card-desc {
+      font-size: 14px;
+      color: #666;
+      margin-top: 6px;
+    }
+    .blog-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .blog-link-btn:hover { background: var(--navy-mid); text-decoration: none; color: var(--white); }
+
+    /* ─── CONTACT ────────────────────────────────────── */
+    #contact {
+      padding: var(--section-pad);
+      background: var(--navy);
+      color: var(--white);
+    }
+    #contact .container { max-width: var(--max-w); margin: 0 auto; }
+    .contact-heading {
+      font-family: var(--serif);
+      font-size: 36px;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .contact-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      max-width: 520px;
+      margin-bottom: 36px;
+      line-height: 1.65;
+    }
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--white);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-link:hover {
+      border-color: var(--amber);
+      background: rgba(196,98,45,0.1);
+      text-decoration: none;
+      color: var(--white);
+    }
+    .contact-availability {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+    }
+    .contact-availability strong {
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: #111C30;
+      padding: 24px;
+      text-align: center;
+    }
+    footer p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ─── MOBILE ─────────────────────────────────────── */
+    @media (max-width: 640px) {
+      :root { --section-pad: 56px 20px; }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: var(--slate-bg);
+        border-bottom: 1px solid var(--divider);
+        padding: 16px 24px 20px;
+        gap: 16px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+
+      #hero { padding: 64px 20px 56px; }
+      .hero-meta { gap: 20px; }
+
+      .blog-card { flex-direction: column; align-items: flex-start; }
+      .blog-link-btn { width: 100%; justify-content: center; }
+
+      .contact-links { flex-direction: column; }
+      .contact-link { justify-content: center; }
+
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-name">Apurva Bakshi</span>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <p class="hero-label">GRC-Focused Cybersecurity Professional · Northern Virginia / DC</p>
+      <h1 class="hero-tagline">Animation grad building a path to GRC Analyst — one cert and one diagram at a time.</h1>
+      <p class="hero-bio">I spent four years learning how to make complex ideas land for audiences who don't share your vocabulary. In GRC, that's not a soft skill — it's the job.</p>
+      <a href="#contact" class="hero-cta">Let's Connect</a>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <strong>Currently</strong>
+          Cybersecurity Intern · Tysons Institute
+        </div>
+        <div class="hero-meta-item">
+          <strong>Certification</strong>
+          Google Cybersecurity Cert · Security+ in progress
+        </div>
+        <div class="hero-meta-item">
+          <strong>Target Role</strong>
+          GRC Analyst L1 · Hybrid or Remote
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <p class="section-label">About</p>
+      <h2 class="about-heading">An unexpected path that makes complete sense.</h2>
+      <div class="about-body">
+        <p>I spent four years in art school teaching myself to make complex ideas land with people who don't share your vocabulary. Turns out, that's exactly what cybersecurity needs.</p>
+        <p>The moment I knew this field was it: I was designing the visual identity for my dad's cybersecurity training initiative — logos, mascots, the whole brand. To do the work right, I had to understand what I was designing for — red teams, blue teams, purple teaming. So I read everything. And somewhere in that research, something clicked. The skill I had spent four years building — translating technical complexity into something a non-expert can feel, not just understand — is the core skill of GRC. I wasn't changing directions. I was pointing my existing skills at a new problem.</p>
+        <p>I'm now a Cybersecurity Intern at Tysons Institute, working through their SOC Tier I Certificate program and getting real exposure to security operations every day. I hold my Google Cybersecurity Certificate and I'm actively studying for CompTIA Security+, targeting July 2026. I write a blog called <em>Cyber Nerd Surf</em> on Medium, where I document what I'm learning each week — because explaining something in writing is the best test I know for whether I actually understand it.</p>
+        <p>I'm a tactile learner. My favorite study moment so far was physically dissecting a Dell Optiplex — pulling out every component and touching the hardware I'd only ever seen in textbook diagrams. That's how I learn: hands in it.</p>
+        <p>My target role is GRC Analyst in the Northern Virginia / DC area. If you're building a team that needs someone who can translate technical risk into language executives and auditors can act on — <a href="#contact">let's talk</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-label">Skills &amp; Certifications</p>
+      <h2 class="skills-heading">What I bring to a GRC team.</h2>
+      <p class="skills-intro">I organize my skills honestly — distinguished by what I'm actively using, actively studying, and what I have foundational knowledge of. No overclaiming.</p>
+
+      <div class="tag-legend">
+        <span class="tag-legend-label">Key:</span>
+        <span class="tag tag-active">Actively Using</span>
+        <span class="tag tag-studying">Studying</span>
+        <span class="tag tag-foundational">Foundational</span>
+      </div>
+
+      <div class="skills-grid">
+
+        <!-- Certifications -->
+        <div class="skill-card">
+          <p class="skill-card-title">Certifications</p>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <span class="skill-name">Google Cybersecurity Certificate</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">SOC Tier I (Tysons Institute)</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">CompTIA Security+</span>
+              <span class="tag tag-studying">Studying</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Security & GRC -->
+        <div class="skill-card">
+          <p class="skill-card-title">Security &amp; GRC</p>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <span class="skill-name">Security Operations (SOC)</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Risk &amp; Compliance Fundamentals</span>
+              <span class="tag tag-studying">Studying</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">SIEM Concepts</span>
+              <span class="tag tag-studying">Studying</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Wireshark</span>
+              <span class="tag tag-studying">Studying</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Active Directory</span>
+              <span class="tag tag-foundational">Foundational</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Linux CLI</span>
+              <span class="tag tag-foundational">Foundational</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Transferable Skills -->
+        <div class="skill-card">
+          <p class="skill-card-title">Transferable Skills</p>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <span class="skill-name">Visual communication of technical concepts</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Technical writing &amp; documentation</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Client-facing delivery</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Iterative process management</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tools -->
+        <div class="skill-card">
+          <p class="skill-card-title">Tools &amp; Platforms</p>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <span class="skill-name">Adobe Creative Suite</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Figma</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">GitHub</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Google Workspace</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Cloudflare Pages</span>
+              <span class="tag tag-active">Active</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <div class="container">
+      <p class="section-label">Blog</p>
+      <h2 class="blog-heading">Cyber Nerd Surf</h2>
+      <p class="blog-sub">I document what I'm learning each week — in writing, because that's how I find out whether I actually understand it. Published on Medium.</p>
+      <div class="blog-card">
+        <div>
+          <p class="blog-card-label">Published on Medium · Weekly</p>
+          <p class="blog-card-name">@ApurvaCyberSec</p>
+          <p class="blog-card-desc">Security operations, GRC concepts, learning in public — from someone a few steps behind you (or ahead).</p>
+        </div>
+        <a href="https://medium.com/@ApurvaCyberSec" target="_blank" rel="noopener noreferrer" class="blog-link-btn">
+          Read the Blog →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label" style="color: rgba(255,255,255,0.45);">Contact</p>
+      <h2 class="contact-heading">Let's build something together.</h2>
+      <p class="contact-sub">I'm open to GRC Analyst roles and conversations in the Northern Virginia / DC area — hybrid or remote. If you're building a team that needs someone who can make technical risk make sense, I want to hear about it.</p>
+      <div class="contact-links">
+        <a href="https://linkedin.com/in/apurvabakshi" target="_blank" rel="noopener noreferrer" class="contact-link">
+          ↗ LinkedIn
+        </a>
+        <a href="https://github.com/apurvabakshi" target="_blank" rel="noopener noreferrer" class="contact-link">
+          ↗ GitHub
+        </a>
+        <a href="https://medium.com/@ApurvaCyberSec" target="_blank" rel="noopener noreferrer" class="contact-link">
+          ↗ Medium Blog
+        </a>
+      </div>
+      <p class="contact-availability">
+        <strong>Actively looking</strong> · Open to hybrid and remote · Targeting full-time GRC Analyst role as Security+ completes (July 2026)
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Apurva Bakshi · Built with GitHub &amp; Cloudflare Pages</p>
+  </footer>
+
+</body>
+</html>
